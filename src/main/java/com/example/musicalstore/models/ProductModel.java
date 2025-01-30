@@ -10,13 +10,18 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
+    @Column(columnDefinition = "TEXT")
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String artist;
+    @Column(columnDefinition = "TEXT")
     private String genre;
     private int releaseYear;
     private double price;
     private int stockQuantity;
+    @Column(columnDefinition = "TEXT")
     private String description;
+    @Column(columnDefinition = "TEXT")
     private String imageUrl;
     private LocalDateTime createdAt = LocalDateTime.now();
 

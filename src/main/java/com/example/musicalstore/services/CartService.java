@@ -6,6 +6,7 @@ import com.example.musicalstore.models.ProductModel;
 import com.example.musicalstore.models.UserModel;
 import com.example.musicalstore.repositories.CartRepository;
 import com.example.musicalstore.repositories.CartItemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,19 @@ public class CartService {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
         this.userService = userService;
+    }
+
+    @Transactional
+    public void clearCart() {
+        try {
+            // Получаем все элементы корзины
+            List<CartItemModel> cartItems = viewCart();
+
+            // Удаляем все элементы
+            cartItemRepository.deleteAll(cartItems);
+        } catch (Exception e) {
+            throw new RuntimeException("Error clearing cart: " + e.getMessage());
+        }
     }
 
     public void addProductToCart(ProductModel product, int quantity) {
